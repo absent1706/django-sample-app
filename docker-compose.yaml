@@ -23,11 +23,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
 
+      SECRET_KEY: ${SECRET_KEY:?}
       DEBUG: ${DEBUG}
-
-    volumes:
-      # remove below string for production
-      - .:/usr/src
     ports:
       - "8000:8000"
     depends_on:

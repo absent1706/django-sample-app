@@ -10,21 +10,28 @@ create `.env` file and add variables like in `.env.example`
 
 ### To run locally
 
-Install `python:3.10`, `pip3`, `pipenv`
-
-Using [pipenv](https://github.com/pypa/pipenv) run `pipenv shell` and `pipenv install` to create virtual environment and install dependencies
+Install `python:3.10`, `pip3`, `virtualenv`
 
 ```sh
-$ pipenv shell
-$ pipenv install
+virtualenv venv
+. venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Go to `src` directory and run
+Run DB 
+
+```
+docker-compose up -d postgres
+docker-compose logs -f
+```
+
+Run app
 
 ```sh
-$ python manage.py migrate
-$ python manage.py test
-$ python manage.py runserver
+cd src
+python manage.py migrate
+python manage.py test
+python manage.py runserver
 ```
 
 ### To run via docker
@@ -33,26 +40,16 @@ Install `Docker` and `docker-compose`
 
 Run 
 ```sh
-$ docker-compose build
-$ docker-compose up
-
+docker-compose up --build
 ```
 
 Open `http://localhost:8000` to view it in the browser
 
 ## [Django admin](https://docs.djangoproject.com/en/4.1/ref/contrib/admin/) web interface (user should be `is_staff` or `is_superuser`)
-`http://localhost:8000/admin`
 
+Create superuser
+```
+python manage.py createsuperuser
+```
 
-## [Browsable API](https://www.django-rest-framework.org/topics/browsable-api/)
-`http://localhost:8000/api/v1/`
-
-
-## Swagger and Redoc
-`http://localhost:8000/api/docs/schema/swagger-ui/`
-`http://localhost:8000/api/docs/schema/redoc/`
-
-## YAML schema
-`http://localhost:8000/api/docs/schema/`
-
-Use your user credentials to login into the swagger
+Then visit `http://localhost:8000/admin`
