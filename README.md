@@ -45,6 +45,11 @@ docker-compose up --build
 
 Open `http://localhost:8000` to view it in the browser
 
+#### Optional: enable live reload when running via Docker
+Before running docker-compose, do
+
+`cp docker-compose.override.local.yml docker-compose.override.yml`
+
 ## [Django admin](https://docs.djangoproject.com/en/4.1/ref/contrib/admin/) web interface (user should be `is_staff` or `is_superuser`)
 
 Create superuser

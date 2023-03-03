@@ -11,3 +11,5 @@ venv/
 ### Other ###
 .env
 mount/
+docker-compose.override.yml
+

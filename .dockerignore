@@ -11,4 +11,6 @@ venv/
 
 mount/
 
+docker-compose.override.yml
+
 .git
