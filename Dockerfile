@@ -11,7 +11,7 @@ RUN chmod +x /wait
 # ----------------
 
 # sets the working directory
-WORKDIR /usr/src
+WORKDIR /usr/app
 
 COPY requirements.txt .
 
@@ -28,4 +28,4 @@ COPY . .
 # EXPOSE 8000
 
 # # Command to run
-CMD /wait && python /usr/src/books/manage.py migrate --noinput && python /usr/src/books/manage.py runserver 0.0.0.0:8000
+CMD /wait && python /usr/app/src/manage.py migrate --noinput && python /usr/app/src/manage.py runserver 0.0.0.0:8000
