@@ -14,9 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, \
     SpectacularRedocView
+from rest_auth.views import PasswordResetConfirmView
 from rest_framework.routers import SimpleRouter
 
 from posts.views import PostViewSet
@@ -26,6 +27,11 @@ router.register(r'posts', PostViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('auth/', include('rest_auth.urls')),
+    path('auth/password/reset/confirm/<str:uidb64>/<str:token>',
+         PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:

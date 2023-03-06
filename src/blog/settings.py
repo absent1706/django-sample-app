@@ -42,6 +42,10 @@ INSTALLED_APPS = [
 
     'drf_spectacular',
 
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+
     'posts'
 ]
 
@@ -149,6 +153,12 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
 
 LOGGING = {
@@ -172,3 +182,6 @@ LOGGING = {
         }
     }
 }
+
+# temp thing. do NOT use this on production !
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

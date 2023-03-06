@@ -5,3 +5,4 @@ djangorestframework==3.14.0
 coverage==7.2.1
 django-filter==22.1
 drf-spectacular==0.26.0
+django-rest-auth==0.9.5
