@@ -30,7 +30,6 @@ Run app
 ```sh
 cd src
 python manage.py migrate
-python manage.py test
 python manage.py runserver
 ```
 
@@ -49,6 +48,21 @@ Open `http://localhost:8000` to view it in the browser
 Before running docker-compose, do
 
 `cp docker-compose.override.local.yml docker-compose.override.yml`
+
+## Run tests
+
+```
+python manage.py test
+```
+
+To enable coverage, type
+```
+coverage run --source='.' manage.py test 
+coverage report
+```
+
+You may also type `coverage html` to get detailed HTML report in `htmlcov` folder
+
 
 ## [Django admin](https://docs.djangoproject.com/en/4.1/ref/contrib/admin/) web interface (user should be `is_staff` or `is_superuser`)
 
