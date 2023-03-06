@@ -10,5 +10,8 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filterset_fields = ['category']
 
+    def get_queryset(self):
+        return Post.objects.prefetch_related('author').all()
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
