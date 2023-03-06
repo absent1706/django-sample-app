@@ -8,6 +8,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filterset_fields = ['category']
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
