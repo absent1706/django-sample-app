@@ -49,6 +49,19 @@ Before running docker-compose, do
 
 `cp docker-compose.override.local.yml docker-compose.override.yml`
 
+### To run via HTTPS on custom domain
+
+> This config is not yet production-ready!
+
+1 . You must have own a domain and setup DNS server to have an A record pointing to an IP of VM you are on.
+
+2 . In .env file, uncomment and adjust env vars under `HTTPS + custom domain` section
+
+3 . Run
+```
+docker-compose -f docker-compose.yaml -f docker-compose.https.yml up -d --build
+```
+
 ## Run tests
 
 ```

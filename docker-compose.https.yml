@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  webapp:
+    environment:
+      ALLOWED_HOSTS: 127.0.0.1,localhost,${HOST_NAME:?}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.webapp.rule: Host(`${HOST_NAME:?}`)
+      traefik.http.routers.webapp.entrypoints: websecure
+      traefik.http.routers.webapp.tls: true
+      traefik.http.routers.webapp.tls.certresolver: myresolver
+      traefik.http.routers.webapp.service: webapp
+      traefik.http.services.webapp.loadbalancer.server.port: 8000
+
+  traefik:
+    image: traefik:v2.4
+    command:
+      - "--log.level=${TRAEFIK_LOG_LEVEL}"
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${LETSENCRYPT_CERTIFICATE_OWNER_EMAIL:?}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./mount/letsencrypt:/letsencrypt
+    ports:
+      - 80:80
+      - 8080:8080
+      - 443:443
+    labels:
+      traefik.enable: true
+      traefik.http.routers.http-all.rule: Host(`${HOST_NAME:?}`)
+      traefik.http.routers.http-all.entrypoints: web, websecure
+      traefik.http.middlewares.https-redirect.redirectscheme.scheme: https
+      traefik.http.middlewares.https-redirect.redirectscheme.permanent: false
+      traefik.http.routers.http-all.middlewares: https-redirect@docker
